@@ -6,16 +6,18 @@ export default function StatusBar() {
   const navigation = useNavigation();
   const navigateToAuth = () => {
     console.log("done");
-    navigation.navigate('Home' as never);
+    navigation.navigate('Auth' as never);
+    navigation.addListener('beforeRemove', ()=>{console.log("done")})
   };
   return (
     <View style={{ alignItems: "center", marginTop: 100 }}>
       <CircularProgress
         value={100}
         radius={30}
-        activeStrokeColor="#0802A3"
+        activeStrokeColor="white"
         onAnimationComplete={navigateToAuth}
         duration={3000}
+        
       />
     </View>
   );
