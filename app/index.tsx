@@ -2,7 +2,7 @@ import { Text, StyleSheet, View } from "react-native";
 import SplashScreen from "@/components/splashScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Auth from "@/components/authComponent";
-import FlashMessage from "react-native-flash-message";
+import WelcomeScreen from "@/components/welcomeScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +22,11 @@ export default function Index() {
       <Stack.Screen
         name="Auth"
         component={Auth}
+        options={{ headerBackTitleVisible: false, headerShown: false }}
+      />
+      <Stack.Screen
+        name="Welcome"
+        component={WelcomeScreen}
         options={{ headerBackTitleVisible: false, headerShown: false }}
       />
       
