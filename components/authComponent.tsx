@@ -1,12 +1,9 @@
 import { Text, View, StyleSheet, TextInput, Button } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import { useNavigation } from "@react-navigation/native";
 import { setUserInformation } from "./reduxFile";
-import {useDispatch} from 'react-redux'
-import { Provider } from "react-redux";
-import { store } from "@/components/reduxStore";
-
+import { useDispatch } from "react-redux";
 
 
 export default function Auth() {
@@ -16,21 +13,30 @@ export default function Auth() {
   const [confirmedPassword, setConfirmedPassword] = useState("");
   const [errors, setErrors] = useState({});
   const [isFormValid, setIsFormValid] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
   const navigateToWelcome = () => {
     navigation.navigate("Welcome" as never);
   };
   const dispatch = useDispatch();
-  
 
+  useEffect(()=>{
+    console.log('hello')
+    if (isFormValid === true) {
+      showMessage({ message: "Loading..." })
+      setTimeout(() => {
+        navigateToWelcome();
+      }, 3000);
+      
+    }
 
+  }, [isFormValid])
 
   const validateForm = () => {
     const error: string[] = [];
     if (!fullName) {
       error.push("Full Name is Required \n");
     }
-    
 
     if (!password) {
       error.push("Password is Required  \n");
@@ -53,8 +59,11 @@ export default function Auth() {
 
       return;
     }
-
     setIsFormValid(true);
+    setIsLoading(true);
+   
+
+    ;
   };
 
   const submitHandler = () => {
@@ -65,15 +74,15 @@ export default function Auth() {
       confirmedPassword,
     };
 
-    dispatch(setUserInformation(payload))
+    dispatch(setUserInformation(payload));
 
     // backend endpoint
     // backend should handle sending welcome mail
+    // implement errors occuring during consuming endpoints
 
     validateForm();
-    if (isFormValid === true) {
-      navigateToWelcome();
-    }
+
+  
   };
 
   return (
@@ -98,14 +107,16 @@ export default function Auth() {
         style={styles.inputStyle}
         onChangeText={setPassword}
         textContentType="password"
+        secureTextEntry={true}
       />
       <label> Confirm Password</label>
       <TextInput
         style={styles.inputStyle}
         onChangeText={setConfirmedPassword}
         textContentType="password"
+        secureTextEntry={true}
       />
-      
+
       <Button title="Submit" color={"#FB8B24"} onPress={submitHandler} />
       <FlashMessage />
     </View>
