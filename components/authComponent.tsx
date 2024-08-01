@@ -2,6 +2,12 @@ import { Text, View, StyleSheet, TextInput, Button } from "react-native";
 import { useState } from "react";
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import { useNavigation } from "@react-navigation/native";
+import { setUserInformation } from "./reduxFile";
+import {useDispatch} from 'react-redux'
+import { Provider } from "react-redux";
+import { store } from "@/components/reduxStore";
+
+
 
 export default function Auth() {
   const [email, setEmail] = useState("");
@@ -14,12 +20,17 @@ export default function Auth() {
   const navigateToWelcome = () => {
     navigation.navigate("Welcome" as never);
   };
+  const dispatch = useDispatch();
+  
+
+
 
   const validateForm = () => {
     const error: string[] = [];
     if (!fullName) {
       error.push("Full Name is Required \n");
     }
+    
 
     if (!password) {
       error.push("Password is Required  \n");
@@ -53,6 +64,11 @@ export default function Auth() {
       password,
       confirmedPassword,
     };
+
+    dispatch(setUserInformation(payload))
+
+    // backend endpoint
+    // backend should handle sending welcome mail
 
     validateForm();
     if (isFormValid === true) {
@@ -89,6 +105,7 @@ export default function Auth() {
         onChangeText={setConfirmedPassword}
         textContentType="password"
       />
+      
       <Button title="Submit" color={"#FB8B24"} onPress={submitHandler} />
       <FlashMessage />
     </View>
