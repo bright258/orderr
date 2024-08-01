@@ -14,19 +14,42 @@ export default function Auth() {
   const [errors, setErrors] = useState({});
   const [isFormValid, setIsFormValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isBackendAuthenticated, setIsBackendAuthenticated] = useState(false)
+
   const navigation = useNavigation();
   const navigateToWelcome = () => {
     navigation.navigate("Welcome" as never);
   };
   const dispatch = useDispatch();
 
+  const payload = {
+    email,
+    fullName,
+    password,
+  };
+
   useEffect(()=>{
-    console.log('hello')
     if (isFormValid === true) {
       showMessage({ message: "Loading..." })
-      setTimeout(() => {
-        navigateToWelcome();
-      }, 3000);
+      fetch('http://localhost:3000/auth/sign-up', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      }).then(()=>{
+        showMessage({ message: "Success" })
+        setTimeout(() => {
+          navigateToWelcome();
+        }, 5000)
+
+      }).catch((e)=>{
+        console.log(e)
+        showMessage({message: "error "+ e, })
+      });
+      
+      ;
       
     }
 
@@ -67,18 +90,19 @@ export default function Auth() {
   };
 
   const submitHandler = () => {
-    const payload = {
-      email,
-      fullName,
-      password,
-      confirmedPassword,
-    };
+    // const payload = {
+    //   email,
+    //   fullName,
+    //   password,
+    // };
 
     dispatch(setUserInformation(payload));
 
     // backend endpoint
     // backend should handle sending welcome mail
     // implement errors occuring during consuming endpoints
+    // add userId from backend to redux
+    // error handling
 
     validateForm();
 
