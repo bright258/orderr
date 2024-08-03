@@ -7,8 +7,10 @@ export type IRootState = ReturnType<typeof rootReducer>;
 
 export default function WelcomeScreen() {
   const userInfo = useSelector((state: IRootState) => state.issue.user);
-
+  const log = useSelector((state: IRootState) => state.issue.isLoggedIn)
+  const states = useSelector((state: IRootState) => state.issue)
+ 
   return (
-    <Text>Hello,  Order your way to a better life</Text>
+    <Text>Hello, {userInfo.access_key}  Order your way to a better life {log} </Text>
   );
 }

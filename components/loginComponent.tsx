@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Text, View, TextInput, Button, StyleSheet } from "react-native";
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import { useDispatch } from "react-redux";
-import { setUserInformation } from "./reduxFile";
+import { setUserInformation, setUserLoggedIn } from "./reduxFile";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function LoginComponent() {
   const [email, setEmail] = useState("");
@@ -35,17 +36,20 @@ export default function LoginComponent() {
           Accept: "application/json",
           "Content-Type": "application/json",
           "ngrok-skip-browser-warning": "69420",
-          
-          
         },
         body: JSON.stringify(payload),
       })
         .then((response) => response.json())
         .then((data) => {
-          dispatch(setUserInformation(data))
-
+          dispatch(setUserInformation(data));
 
           showMessage({ message: "Success" });
+          dispatch(setUserLoggedIn(true));
+
+          AsyncStorage.setItem("user", data);
+          // Hmmm
+          AsyncStorage.setItem("loggedInStatus", JSON.stringify(true));
+
           setTimeout(() => {
             navigateToWelcome();
           }, 2000);
@@ -86,9 +90,6 @@ export default function LoginComponent() {
   const submitHandler = () => {
     validateForm();
   };
-
-  // const dispatch = useDispatch();
-  // dispatch(setUserInformation(payload));
 
   return (
     <View style={styles.container}>
