@@ -5,6 +5,11 @@ import Auth from "@/components/authComponent";
 import WelcomeScreen from "@/components/welcomeScreen";
 import { Provider } from "react-redux";
 import { store } from "@/components/reduxStore";
+import LoginComponent from '@/components/loginComponent';
+import FlashMessage from "react-native-flash-message";
+
+
+// A lot of error handling needed
 
 const Stack = createNativeStackNavigator();
 
@@ -28,13 +33,21 @@ export default function Index() {
           component={Auth}
           options={{ headerBackTitleVisible: false, headerShown: false }}
         />
+         <Stack.Screen
+          name="Login"
+          component={LoginComponent}
+          options={{ headerBackTitleVisible: false, headerShown: false }}
+        />
+
 
         <Stack.Screen
           name="Welcome"
           component={WelcomeScreen}
           options={{ headerBackTitleVisible: false, headerShown: false }}
         />
+        
       </Stack.Navigator>
+      <FlashMessage position="top" />
     </Provider>
   );
 }

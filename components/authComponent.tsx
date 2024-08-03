@@ -17,8 +17,8 @@ export default function Auth() {
   const [isBackendAuthenticated, setIsBackendAuthenticated] = useState(false)
 
   const navigation = useNavigation();
-  const navigateToWelcome = () => {
-    navigation.navigate("Welcome" as never);
+  const navigateToLoginScreen = () => {
+    navigation.navigate("Login" as never);
   };
   const dispatch = useDispatch();
 
@@ -31,7 +31,7 @@ export default function Auth() {
   useEffect(()=>{
     if (isFormValid === true) {
       showMessage({ message: "Loading..." })
-      fetch('http://localhost:3000/auth/sign-up', {
+      fetch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/auth/sign-up`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -41,12 +41,12 @@ export default function Auth() {
       }).then(()=>{
         showMessage({ message: "Success" })
         setTimeout(() => {
-          navigateToWelcome();
-        }, 5000)
+          navigateToLoginScreen();
+        }, 3000)
 
       }).catch((e)=>{
-        console.log(e)
-        showMessage({message: "error "+ e, })
+       
+        showMessage({message: "error " + e, })
       });
       
       ;
@@ -90,20 +90,7 @@ export default function Auth() {
   };
 
   const submitHandler = () => {
-    // const payload = {
-    //   email,
-    //   fullName,
-    //   password,
-    // };
-
-    dispatch(setUserInformation(payload));
-
-    // backend endpoint
-    // backend should handle sending welcome mail
-    // implement errors occuring during consuming endpoints
-    // add userId from backend to redux
-    // error handling
-
+    
     validateForm();
 
   
@@ -114,35 +101,36 @@ export default function Auth() {
       <Text>Orderr is the way to Order</Text>
       <Text style={styles.bold}>Sign Up</Text>
 
-      <label>Email</label>
+      <Text>Email</Text>
       <TextInput
         style={styles.inputStyle}
         onChangeText={setEmail}
         textContentType="emailAddress"
       />
-      <label>Full name</label>
+      <Text>Full name</Text>
       <TextInput
         style={styles.inputStyle}
         onChangeText={setFullName}
         textContentType="name"
       />
-      <label>Password</label>
+      <Text>Password</Text>
       <TextInput
         style={styles.inputStyle}
         onChangeText={setPassword}
         textContentType="password"
         secureTextEntry={true}
       />
-      <label> Confirm Password</label>
-      <TextInput
-        style={styles.inputStyle}
+      <Text> Confirm Password</Text>
+      <TextInput style={styles.inputStyle}
         onChangeText={setConfirmedPassword}
         textContentType="password"
-        secureTextEntry={true}
-      />
-
-      <Button title="Submit" color={"#FB8B24"} onPress={submitHandler} />
-      <FlashMessage />
+        secureTextEntry={true}/>
+      <Button title="Submit" color={"#FB8B24"} onPress={submitHandler}/>
+      
+      <Button title="Already signed up? login"  color={"#FB8B24"}  onPress={()=>{
+        navigateToLoginScreen()
+      }}/>
+      <FlashMessage/>
     </View>
   );
 }
