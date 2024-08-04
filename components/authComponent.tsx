@@ -2,9 +2,6 @@ import { Text, View, StyleSheet, TextInput, Button } from "react-native";
 import { useState, useEffect } from "react";
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import { useNavigation } from "@react-navigation/native";
-import { setUserInformation } from "./reduxFile";
-import { useDispatch } from "react-redux";
-
 
 export default function Auth() {
   const [email, setEmail] = useState("");
@@ -14,13 +11,12 @@ export default function Auth() {
   const [errors, setErrors] = useState({});
   const [isFormValid, setIsFormValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isBackendAuthenticated, setIsBackendAuthenticated] = useState(false)
+  const [isBackendAuthenticated, setIsBackendAuthenticated] = useState(false);
 
   const navigation = useNavigation();
   const navigateToLoginScreen = () => {
     navigation.navigate("Login" as never);
   };
-  const dispatch = useDispatch();
 
   const payload = {
     email,
@@ -28,32 +24,30 @@ export default function Auth() {
     password,
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     if (isFormValid === true) {
-      showMessage({ message: "Loading..." })
+      showMessage({ message: "Loading..." });
       fetch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/auth/sign-up`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "69420",
         },
         body: JSON.stringify(payload),
-      }).then(()=>{
-        showMessage({ message: "Success" })
-        setTimeout(() => {
-          navigateToLoginScreen();
-        }, 3000)
-
-      }).catch((e)=>{
-       
-        showMessage({message: "error " + e, })
-      });
-      
-      ;
-      
+      })
+        .then((response) => response.json())
+        .then(() => {
+          showMessage({ message: "Success" });
+          setTimeout(() => {
+            navigateToLoginScreen();
+          }, 3000);
+        })
+        .catch((e) => {
+          showMessage({ message: "error " + e });
+        });
     }
-
-  }, [isFormValid])
+  }, [isFormValid]);
 
   const validateForm = () => {
     const error: string[] = [];
@@ -84,16 +78,10 @@ export default function Auth() {
     }
     setIsFormValid(true);
     setIsLoading(true);
-   
-
-    ;
   };
 
   const submitHandler = () => {
-    
     validateForm();
-
-  
   };
 
   return (
@@ -121,16 +109,22 @@ export default function Auth() {
         secureTextEntry={true}
       />
       <Text> Confirm Password</Text>
-      <TextInput style={styles.inputStyle}
+      <TextInput
+        style={styles.inputStyle}
         onChangeText={setConfirmedPassword}
         textContentType="password"
-        secureTextEntry={true}/>
-      <Button title="Submit" color={"#FB8B24"} onPress={submitHandler}/>
-      
-      <Button title="Already signed up? login"  color={"#FB8B24"}  onPress={()=>{
-        navigateToLoginScreen()
-      }}/>
-      <FlashMessage/>
+        secureTextEntry={true}
+      />
+      <Button title="Submit" color={"#FB8B24"} onPress={submitHandler} />
+
+      <Button
+        title="Already signed up? login"
+        color={"#FB8B24"}
+        onPress={() => {
+          navigateToLoginScreen();
+        }}
+      />
+      <FlashMessage />
     </View>
   );
 }

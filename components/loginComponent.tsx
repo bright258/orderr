@@ -46,9 +46,7 @@ export default function LoginComponent() {
           showMessage({ message: "Success" });
           dispatch(setUserLoggedIn(true));
 
-          AsyncStorage.setItem("user", data);
-          // Hmmm
-          AsyncStorage.setItem("loggedInStatus", JSON.stringify(true));
+         
 
           setTimeout(() => {
             navigateToWelcome();
@@ -56,6 +54,7 @@ export default function LoginComponent() {
         })
         .catch((e) => {
           showMessage({ message: "error " + e });
+          console.log(e.message)
         });
     }
   }, [isFormValid]);

@@ -5,9 +5,9 @@ import Auth from "@/components/authComponent";
 import WelcomeScreen from "@/components/welcomeScreen";
 import { Provider } from "react-redux";
 import { store } from "@/components/reduxStore";
-import LoginComponent from '@/components/loginComponent';
+import LoginComponent from "@/components/loginComponent";
 import FlashMessage from "react-native-flash-message";
-
+import HomeScreen from "@/components/homeScreen";
 
 // A lot of error handling needed
 
@@ -27,25 +27,28 @@ export default function Index() {
           component={SplashScreen}
           options={{ headerBackTitleVisible: false, headerShown: false }}
         />
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ headerBackTitleVisible: false, headerShown: false }}
+        />
 
         <Stack.Screen
           name="Auth"
           component={Auth}
           options={{ headerBackTitleVisible: false, headerShown: false }}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="Login"
           component={LoginComponent}
           options={{ headerBackTitleVisible: false, headerShown: false }}
         />
-
 
         <Stack.Screen
           name="Welcome"
           component={WelcomeScreen}
           options={{ headerBackTitleVisible: false, headerShown: false }}
         />
-        
       </Stack.Navigator>
       <FlashMessage position="top" />
     </Provider>
