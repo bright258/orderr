@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import { useSelector } from "react-redux";
 import { combineReducers } from "@reduxjs/toolkit";
+// Do stuff
 
 
 const rootReducer = combineReducers({});
