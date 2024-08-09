@@ -20,15 +20,23 @@ import { useDispatch } from "react-redux";
 export default function HomeScreen() {
   preventUserFromGoingBackOnPressingBackButton();
   const dispatch = useDispatch();
+  
   //   const userInfo = useSelector((state: IRootState) => state.issue.userDetails);
   useEffect(() => {
-    console.log("ksk")
-    getValueFromSecureStorage("userToken").then((token) => {
-      console.log(token, "kdkdkd")
-      const userId = JWT.decode(token!, process.env.EXPO_PUBLIC_JWT_KEY!).sub;
-      console.log("Welcommmmmmmmmmmme", userId); 
-      findUserDetailsFromBackendAPI(userId!, dispatch);
-    });
+
+    async()=>{
+      const s = await getValueFromSecureStorage("signedInStatus")
+      if(s){
+        await console.log(await s)
+      }
+
+    }
+      
+    
+      const token = getValueFromSecureStorage("userToken")
+      // const userId = JWT.decode(token!, process.env.EXPO_PUBLIC_JWT_KEY!).sub;
+      // console.log("Welcommmmmmmmmmmme", userId); 
+      // findUserDetailsFromBackendAPI(userId!, dispatch);
   });
 
   return (
