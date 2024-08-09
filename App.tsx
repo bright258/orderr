@@ -4,14 +4,18 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import SignUpScreen from "./components/signUpScreen";
 import HomeScreen from "./components/homeScreen";
-// import LoginComponent from "./components/signInScreen";
+import SignInScreen from "./components/signInScreen";
 import FlashMessage from "react-native-flash-message";
+import WelcomeScreen from "./components/welcomeScreen";
+import { Provider } from "react-redux";
+import { store } from "./utilities/reduxStore";
 
 
 const Stack = createNativeStackNavigator();
 
 export default function Index() {
   return (
+    <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
@@ -19,11 +23,11 @@ export default function Index() {
           component={SplashScreen}
           options={{ headerBackTitleVisible: false, headerShown: false }}
         />
-       <Stack.Screen
+        <Stack.Screen
           name="SignUp"
           component={SignUpScreen}
           options={{ headerBackTitleVisible: false, headerShown: false }}
-        /> 
+        />
 
         <Stack.Screen
           name="Home"
@@ -31,13 +35,20 @@ export default function Index() {
           options={{ headerBackTitleVisible: false, headerShown: false }}
         />
 
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Login"
-          component={LoginComponent}
+          component={SignInScreen}
           options={{ headerBackTitleVisible: false, headerShown: false }}
-        /> */}
+        />
+
+        <Stack.Screen
+          name="Welcome"
+          component={WelcomeScreen}
+          options={{ headerBackTitleVisible: false, headerShown: false }}
+        />
       </Stack.Navigator>
       <FlashMessage position="top" />
     </NavigationContainer>
+    </Provider>
   );
 }

@@ -1,110 +1,58 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, TextInput, Button, StyleSheet } from "react-native";
-// import FlashMessage, { showMessage } from "react-native-flash-message";
-// import { useDispatch } from "react-redux";
-// import { setUserInformation, setUserLoggedIn } from "./reduxFile";
+import { Text, View, TextInput, Button } from "react-native";
+import { showMessage } from "react-native-flash-message";
 import { useNavigation } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { signInStyles } from "../styles/signInStyle";
+import {
+  navigateToSignUp,
+  preventUserFromGoingBackOnPressingBackButton,
+  validateUserEntryIntoSignInForm,
+  signInUserWithBackendAuthApi,
+} from "../utilities/userTasks";
+import { LoginPayload } from "../utilities/userConstants";
 
-export default function LoginComponent() {
+export default function SignInScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
-  const [errors, setErrors] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-//   const dispatch = useDispatch();
 
   const navigation = useNavigation();
-  const navigateToWelcome = () => {
-    navigation.navigate("Welcome" as never);
-  };
-  const navigateToAuth = () => {
-    navigation.navigate("Auth" as never);
-  };
 
-  const payload = {
+  const payload: LoginPayload = {
     email,
     password,
   };
 
+  preventUserFromGoingBackOnPressingBackButton();
+
+  const submitHandler = () => {
+    const validateForm = validateUserEntryIntoSignInForm(payload);
+    if (validateForm === true) {
+      setIsFormValid(true);
+    }
+  };
   useEffect(() => {
     if (isFormValid === true) {
-    //   showMessage({ message: "Loading..." });
-      fetch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/auth/login`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "ngrok-skip-browser-warning": "69420",
-        },
-        body: JSON.stringify(payload),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-        //   dispatch(setUserInformation(data));
-
-        //   showMessage({ message: "Success" });
-        //   dispatch(setUserLoggedIn(true));
-
-         
-
-          setTimeout(() => {
-            navigateToWelcome();
-          }, 2000);
-        })
-        .catch((e) => {
-        //   showMessage({ message: "error " + e });
-          console.log(e.message)
-        });
+      showMessage({ message: "Loading..." });
+      signInUserWithBackendAuthApi(payload, navigation);
     }
   }, [isFormValid]);
 
-  const validateForm = () => {
-    const error: string[] = [];
-
-    if (!password) {
-      error.push("Password is Required  \n");
-    } else if (password.length < 6) {
-      error.push("Password must be at least 6 characters. \n");
-    }
-    if (!email) {
-      error.push("Email is Required \n");
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      error.push("Email is invalid. \n");
-    }
-
-    if (error.length > 0) {
-    //   showMessage({ message: "ehllo" });
-      setErrors(error);
-
-    //   showMessage({ message: error.toString() });
-
-      return;
-    }
-
-    setIsFormValid(true);
-    setIsLoading(true);
-  };
-
-  const submitHandler = () => {
-    validateForm();
-  };
-
   return (
-    <View style={styles.container}>
+    <View style={signInStyles.container}>
       <Text>Orderr is your power to Order</Text>
-      <Text style={styles.bold}>Sign In</Text>
+      <Text style={signInStyles.bold}>Sign In</Text>
 
       <Text>Email</Text>
       <TextInput
-        style={styles.inputStyle}
+        style={signInStyles.inputStyle}
         onChangeText={setEmail}
         textContentType="emailAddress"
       />
 
       <Text>Password</Text>
       <TextInput
-        style={styles.inputStyle}
+        style={signInStyles.inputStyle}
         onChangeText={setPassword}
         textContentType="password"
         secureTextEntry={true}
@@ -115,31 +63,9 @@ export default function LoginComponent() {
         title="Not Signed up yet? register"
         color={"#FB8B24"}
         onPress={() => {
-          navigateToAuth();
+          navigateToSignUp(navigation);
         }}
       />
-      {/* <FlashMessage /> */}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignContent: "center",
-    textAlign: "center",
-    alignItems: "center",
-    fontStyle: "italic",
-  },
-  bold: {
-    fontSize: 30,
-  },
-  inputStyle: {
-    height: 30,
-    width: 300,
-    borderColor: "black",
-    borderStyle: "dashed",
-    backgroundColor: "white",
-  },
-});
