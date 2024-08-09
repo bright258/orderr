@@ -16,7 +16,7 @@ export const checkUserSignInStatusAndNavigate = (navigation: any) => {
       navigation.navigate("SignUp" as never);
     }
     if (userIsLoggedIn === "true") {
-      navigation.navigate("Home" as never);
+      navigation.navigate("SignUp" as never);
     }
     return;
   });
@@ -69,7 +69,7 @@ export const validateUserEntryIntoSignUpForm = (
   } else if (!/\S+@\S+\.\S+/.test(payload.email)) {
     error.push("Email is invalid. \n");
   }
-  if (payload.password != payload.confirmedPassword) {
+  if (payload.password !== payload.confirmedPassword) {
     error.push("Password not matching \n");
   }
 
@@ -117,10 +117,10 @@ export const validateUserEntryIntoSignInForm = (payload: LoginPayload) => {
   }
 };
 
-export const storeUserTokenAndLoggedInStatus =  (data: string) => {
-   saveToSecureStorage("userToken", data);
-   saveToSecureStorage("signedInStatus", "true");
-   showMessage({ message: "Success" });
+export const storeUserTokenAndLoggedInStatus = (data: string) => {
+  saveToSecureStorage("userToken", data);
+  saveToSecureStorage("signedInStatus", "true");
+  showMessage({ message: "Success" });
 };
 
 export const signInUserWithBackendAuthApi = (
@@ -138,7 +138,8 @@ export const signInUserWithBackendAuthApi = (
   })
     .then((response) => response.json())
     .then((data) => {
-      storeUserTokenAndLoggedInStatus(data);
+      console.log(data);
+      storeUserTokenAndLoggedInStatus(data.access_token);
 
       setTimeout(() => {
         navigateToWelcome(navigation);
@@ -152,7 +153,7 @@ export const signInUserWithBackendAuthApi = (
 export const findUserDetailsFromBackendAPI = (
   userId: string,
   dispatch: any
-) => {
+):any => {
   fetch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/auth/${userId}`, {
     method: "GET",
     headers: {

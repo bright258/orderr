@@ -36,7 +36,7 @@ export default function SignInScreen() {
       showMessage({ message: "Loading..." });
       signInUserWithBackendAuthApi(payload, navigation);
     }
-  }, [isFormValid]);
+  }, [isFormValid, navigation, payload]);
 
   return (
     <View style={signInStyles.container}>

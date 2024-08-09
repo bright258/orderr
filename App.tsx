@@ -1,4 +1,3 @@
-import { Text, StyleSheet, View } from "react-native";
 import SplashScreen from "./components/splashScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";

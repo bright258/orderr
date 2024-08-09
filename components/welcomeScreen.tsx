@@ -1,19 +1,23 @@
 import React, { useEffect } from "react";
 import { Text, View, Button, Image } from "react-native";
-import { useNavigation } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
 import JWT from "expo-jwt";
 import { useDispatch } from "react-redux";
 import { getValueFromSecureStorage } from "../utilities/getFromSecureStorage";
-import { findUserDetailsFromBackendAPI, preventUserFromGoingBackOnPressingBackButton } from "../utilities/userTasks";
+import {
+  findUserDetailsFromBackendAPI,
+  preventUserFromGoingBackOnPressingBackButton,
+} from "../utilities/userTasks";
 import { welcomeScreenStyle } from "../styles/welcomeStyle";
 
 export default function WelcomeScreen() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  preventUserFromGoingBackOnPressingBackButton()
+  preventUserFromGoingBackOnPressingBackButton();
 
   useEffect(() => {
     getValueFromSecureStorage("userToken").then((token) => {
+      console.log(token);
       const userId = JWT.decode(token!, process.env.EXPO_PUBLIC_JWT_KEY!).sub;
       console.log("Welcommmmmmmmmmmme", userId);
       findUserDetailsFromBackendAPI(userId!, dispatch);

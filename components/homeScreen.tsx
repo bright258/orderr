@@ -1,50 +1,35 @@
-import React, {useEffect} from "react";
-import { View, Text } from "react-native";
-import { findUserDetailsFromBackendAPI, preventUserFromGoingBackOnPressingBackButton } from "../utilities/userTasks";
-import { getValueFromSecureStorage } from "../utilities/getFromSecureStorage";
-import JWT from "expo-jwt";
-// import { useSelector } from "react-redux";
-// import { combineReducers } from "@reduxjs/toolkit";
-//   dispatch(setUserLoggedIn(true));
-  
-//   dispatch(setUserInformation(data));
-import { useDispatch } from "react-redux";
-// import { setUserInformation, setUserLoggedIn } from "./reduxFile";
-// const rootReducer = combineReducers({});
-// export type IRootState = ReturnType<typeof rootReducer>;
-// import { combineReducers } from "@reduxjs/toolkit";
+import React, { useEffect } from "react";
+import { View, Text, Button } from "react-native";
+import {
+  findUserDetailsFromBackendAPI,
+  preventUserFromGoingBackOnPressingBackButton,
+} from "../utilities/userTasks";
+import { useNavigation } from "@react-navigation/native";
 
-// const rootReducer = combineReducers({});
-// export type IRootState = ReturnType<typeof rootReducer>;
+import { useSelector } from "react-redux";
+import { combineReducers } from "@reduxjs/toolkit";
+
+
+const rootReducer = combineReducers({});
+export type IRootState = ReturnType<typeof rootReducer>;
 
 export default function HomeScreen() {
   preventUserFromGoingBackOnPressingBackButton();
-  const dispatch = useDispatch();
-  
-  //   const userInfo = useSelector((state: IRootState) => state.issue.userDetails);
-  useEffect(() => {
+  const navigation = useNavigation();
 
-    async()=>{
-      const s = await getValueFromSecureStorage("signedInStatus")
-      if(s){
-        await console.log(await s)
-      }
-
-    }
-      
-    
-      const token = getValueFromSecureStorage("userToken")
-      // const userId = JWT.decode(token!, process.env.EXPO_PUBLIC_JWT_KEY!).sub;
-      // console.log("Welcommmmmmmmmmmme", userId); 
-      // findUserDetailsFromBackendAPI(userId!, dispatch);
-  });
+  const userInfo = useSelector((state: IRootState) => state.issue.userDetails);
+  // useEffect(() => {
+  //   console.log("djdjdj", userInfo);
+  // });
 
   return (
     <View>
-      <Text>Welcome </Text>
+      <Text>Welcome {userInfo.fullName}</Text>
 
       <Text>Restaurants near you</Text>
       <Text>Top picks of the day</Text>
+
+      <Button title="log out" color={"#FB8B24"} onPress={() => {}} />
     </View>
   );
 }
