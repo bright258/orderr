@@ -9,7 +9,10 @@ import {
   navigateToLoginScreen,
 } from "../utilities/userTasks";
 import { useNavigation } from "@react-navigation/native";
-import { FormValdationPayload, UserSignUpPayload } from "../utilities/userConstants";
+import {
+  FormValidationPayload,
+  UserSignUpPayload,
+} from "../utilities/userConstants";
 
 export default function SignUpScreen() {
   const [email, setEmail] = useState("");
@@ -23,14 +26,12 @@ export default function SignUpScreen() {
     fullName,
     password,
   };
-  const formValidationPayload: FormValdationPayload = {
+  const formValidationPayload: FormValidationPayload = {
     email,
     password,
     fullName,
     confirmedPassword,
   };
-
-
 
   preventUserFromGoingBackOnPressingBackButton();
   const submitHandler = () => {
@@ -43,13 +44,12 @@ export default function SignUpScreen() {
   useEffect(() => {
     if (isFormValid === true) {
       showMessage({ message: "Loading..." });
-      signUpUserWithBackendAuthApi(payload);
+      signUpUserWithBackendAuthApi(payload, navigation);
+      return;
     } else {
-      console.log("nOt caliod");
+      return;
     }
   }, [isFormValid, submitHandler]);
-
-  
 
   return (
     <View style={signUpStyles.container}>

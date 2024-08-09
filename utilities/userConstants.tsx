@@ -1,11 +1,14 @@
 export interface UserSignUpPayload {
-    email: string;
-    fullName: string;
-    password: string;
-  }
-  
+  email: string;
+  fullName: string;
+  password: string;
+}
 
-export interface FormValdationPayload extends UserSignUpPayload {
+export interface FormValidationPayload extends UserSignUpPayload {
   confirmedPassword: string;
 }
 
+export interface LoginPayload {
+  email: string;
+  password: string;
+}
