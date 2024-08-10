@@ -8,6 +8,7 @@ export const homeStyle = StyleSheet.create({
       textAlign: "center",
       alignItems: "center",
       fontStyle: "italic",
+      marginTop: 40
     },
     boldText: {
       fontSize: 30,

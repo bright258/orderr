@@ -9,6 +9,7 @@ import {
 import { showMessage } from "react-native-flash-message";
 import { saveToSecureStorage } from "./saveToSecureStorage";
 import { setUserDetails } from "./reduxFile";
+import JWT from "expo-jwt";
 
 export const checkUserSignInStatusAndNavigate = (navigation: any) => {
   getValueFromSecureStorage("signedInStatus").then((userIsLoggedIn) => {
@@ -138,7 +139,6 @@ export const signInUserWithBackendAuthApi = (
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       storeUserTokenAndLoggedInStatus(data.access_token);
 
       setTimeout(() => {
@@ -146,7 +146,7 @@ export const signInUserWithBackendAuthApi = (
       }, 2000);
     })
     .catch((error) => {
-      showMessage({ message: "error " + error });
+      showMessage({ message: "error" + error.message });
     });
 };
 
@@ -170,3 +170,19 @@ export const findUserDetailsFromBackendAPI = (
       showMessage({ message: "error " + error });
     });
 };
+
+
+export const getUserTokenAndRetreiveUserInfo = (dispatch: any)=>{
+  getValueFromSecureStorage("userToken").then((token) => {
+    const userId = JWT.decode(token!, process.env.EXPO_PUBLIC_JWT_KEY!).sub;
+    findUserDetailsFromBackendAPI(userId!, dispatch);
+  });
+
+}
+
+
+// export const deleteUserState = (data: string) => {
+//   saveToSecureStorage("userToken", data);
+//   saveToSecureStorage("signedInStatus", "true");
+//   showMessage({ message: "Success" });
+// };

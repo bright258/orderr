@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { getValueFromSecureStorage } from "../utilities/getFromSecureStorage";
 import {
   findUserDetailsFromBackendAPI,
+  getUserTokenAndRetreiveUserInfo,
   preventUserFromGoingBackOnPressingBackButton,
 } from "../utilities/userTasks";
 import { welcomeScreenStyle } from "../styles/welcomeStyle";
@@ -16,12 +17,8 @@ export default function WelcomeScreen() {
   preventUserFromGoingBackOnPressingBackButton();
 
   useEffect(() => {
-    getValueFromSecureStorage("userToken").then((token) => {
-      console.log(token);
-      const userId = JWT.decode(token!, process.env.EXPO_PUBLIC_JWT_KEY!).sub;
-      console.log("Welcommmmmmmmmmmme", userId);
-      findUserDetailsFromBackendAPI(userId!, dispatch);
-    });
+    getUserTokenAndRetreiveUserInfo(dispatch)
+   
   });
 
   return (
