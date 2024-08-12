@@ -6,10 +6,11 @@ import { signInStyles } from "../styles/signInStyle";
 import {
   navigateToSignUp,
   preventUserFromGoingBackOnPressingBackButton,
-  validateUserEntryIntoSignInForm,
-  signInUserWithBackendAuthApi,
+  
 } from "../utilities/userTasks";
 import { LoginPayload } from "../utilities/userConstants";
+import { signInUserWithBackendAuthApi } from "../utilities/userHttpRequests/userAuthRequests";
+import {validateUserEntryIntoSignInForm} from "../utilities/formValidators/signInVaidators"
 
 export default function SignInScreen() {
   const [email, setEmail] = useState("");
@@ -31,12 +32,15 @@ export default function SignInScreen() {
       setIsFormValid(true);
     }
   };
+  // use Effect not needed
+  // remove payload from dependency array
+
   useEffect(() => {
     if (isFormValid === true) {
       showMessage({ message: "Loading..." });
       signInUserWithBackendAuthApi(payload, navigation);
     }
-  }, [isFormValid, navigation, payload]);
+  }, [submitHandler]);
 
   return (
     <View style={signInStyles.container}>

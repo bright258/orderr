@@ -21,6 +21,7 @@ export default function Index() {
           name="Splash"
           component={SplashScreen}
           options={{ headerBackTitleVisible: false, headerShown: false }}
+          
         />
         <Stack.Screen
           name="SignUp"

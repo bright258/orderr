@@ -5,21 +5,22 @@ import JWT from "expo-jwt";
 import { useDispatch } from "react-redux";
 import { getValueFromSecureStorage } from "../utilities/getFromSecureStorage";
 import {
-  findUserDetailsFromBackendAPI,
-  getUserTokenAndRetreiveUserInfo,
   preventUserFromGoingBackOnPressingBackButton,
 } from "../utilities/userTasks";
 import { welcomeScreenStyle } from "../styles/welcomeStyle";
+import {getUserTokenAndRetreiveUserInfo} from "../utilities/tokens/userAuthTokens"
 
 export default function WelcomeScreen() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   preventUserFromGoingBackOnPressingBackButton();
 
+  // [] empty array to run it once
+  // navigate type
   useEffect(() => {
-    getUserTokenAndRetreiveUserInfo(dispatch)
+    getUserTokenAndRetreiveUserInfo(dispatch, navigation)
    
-  });
+  }, []);
 
   return (
     <View style={welcomeScreenStyle.container}>
@@ -31,11 +32,11 @@ export default function WelcomeScreen() {
         style={welcomeScreenStyle.imageStyle}
         source={require("../assets/deliveryOne.jpg")}
       />
-      <Text>We priotise convienience and speed</Text>
+      <Text>We prioritise convienience and speed</Text>
       <Text>Order like a boss today</Text>
       <Button
         title="Continue"
-        color={"#FB8B24"}
+        color={"#FF9F0D"}
         onPress={() => {
           navigation.navigate("Home" as never);
         }}

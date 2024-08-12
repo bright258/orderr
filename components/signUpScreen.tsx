@@ -4,8 +4,6 @@ import FlashMessage, { showMessage } from "react-native-flash-message";
 import { signUpStyles } from "../styles/signUpStyle";
 import {
   preventUserFromGoingBackOnPressingBackButton,
-  signUpUserWithBackendAuthApi,
-  validateUserEntryIntoSignUpForm,
   navigateToLoginScreen,
 } from "../utilities/userTasks";
 import { useNavigation } from "@react-navigation/native";
@@ -13,6 +11,8 @@ import {
   FormValidationPayload,
   UserSignUpPayload,
 } from "../utilities/userConstants";
+import { signUpUserWithBackendAuthApi } from "../utilities/userHttpRequests/userAuthRequests";
+import {validateUserEntryIntoSignUpForm} from "../utilities/formValidators/signUpValidators"
 
 export default function SignUpScreen() {
   const [email, setEmail] = useState("");
