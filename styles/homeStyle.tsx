@@ -60,5 +60,41 @@ export const homeStyle = StyleSheet.create({
     height: 30,
     width: 115,
     borderRadius: 52
+  },
+  searchBox:{
+    backgroundColor: "#ffff",
+    width: 295,
+    height: 50,
+    borderRadius: 8,
+    justifyContent: "center",
+    marginTop: 15
+  },
+  navSearchBox:{
+    backgroundColor: "#ffff",
+    width: 295,
+    height: 30,
+    borderRadius: 8,
+    justifyContent: "center",
+    marginTop: 15,
+    flexDirection: "row",
+    flexWrap: "wrap",
+  
+  },
+  showRoom: {
+    height: 181.98,
+    width: 409.97,
+    marginTop: -0.5,
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  eachShowRoom:{
+    width: 125.91,
+    height: 181.98,
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    
   }
+
+
 });

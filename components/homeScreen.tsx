@@ -1,5 +1,13 @@
 import React, { useEffect } from "react";
-import { View, Text, Button, ScrollView, Image, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  ScrollView,
+  Image,
+  Pressable,
+  TextInput,
+} from "react-native";
 import { preventUserFromGoingBackOnPressingBackButton } from "../utilities/userTasks";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
@@ -47,8 +55,7 @@ export default function HomeScreen() {
                     alignItems: "center",
                     textAlign: "center",
                     fontSize: 15,
-                    padding: 5
-                   
+                    padding: 5,
                   }}
                 >
                   Open Voucher
@@ -57,18 +64,59 @@ export default function HomeScreen() {
             </View>
             <Image
               style={homeStyle.imageInSmallerContainer}
-              source={require("../assets/hamburgerOne.png")}
+              source={require("../assets/ham.png")}
             />
           </View>
         </View>
+        <View style={homeStyle.searchBox}>
+          <TextInput
+            placeholder=" ⌕ search dishes and restuarants"
+            style={{ height: 17 }}
+          ></TextInput>
+        </View>
+        <View style={homeStyle.navSearchBox}>
+          <Pressable>
+            <Text style={{ padding: 5, color: "#565656" }}>foods</Text>
+          </Pressable>
+          <Pressable>
+            <Text style={{ padding: 5, color: "#565656" }}>drinks</Text>
+          </Pressable>
+          <Pressable>
+            <Text style={{ padding: 5, color: "#565656" }}>sauce</Text>
+          </Pressable>
+          <Pressable>
+            <Text style={{ padding: 5, color: "#565656" }}>snacks</Text>
+          </Pressable>
+          <Pressable>
+            <Text style={{ padding: 5, color: "#565656" }}>stores</Text>
+          </Pressable>
+        </View>
+
+        <View style={homeStyle.showRoom}>
+          <ScrollView></ScrollView>
+          <View style={homeStyle.eachShowRoom}>
+            <Image
+              source={require("../assets/first.png")}
+              style={{ height: 93.96, width: 93.96 }}
+            />
+            <Text style={{}}>Hamburger</Text>
+          </View>
+          <View style={homeStyle.eachShowRoom}>
+            <Image
+              source={require("../assets/first.png")}
+              style={{ height: 93.96, width: 93.96 }}
+            />
+            <Text style={{}}>Hamburger</Text>
+          </View>
+          <View style={homeStyle.eachShowRoom}>
+            <Image
+              source={require("../assets/first.png")}
+              style={{ height: 93.96, width: 93.96 }}
+            />
+            <Text style={{}}>Hamburger</Text>
+          </View>
+        </View>
       </View>
-
-      {/* <ScrollView>
-        <Text>Hello</Text>
-        <Text>Hello</Text>
-      </ScrollView> */}
-
-      <Text>Top picks of the day</Text>
 
       {/* <Button
         title="log out"
