@@ -6,11 +6,10 @@ import { signInStyles } from "../styles/signInStyle";
 import {
   navigateToSignUp,
   preventUserFromGoingBackOnPressingBackButton,
-  
 } from "../utilities/userTasks";
 import { LoginPayload } from "../utilities/userConstants";
 import { signInUserWithBackendAuthApi } from "../utilities/userHttpRequests/userAuthRequests";
-import {validateUserEntryIntoSignInForm} from "../utilities/formValidators/signInVaidators"
+import { validateUserEntryIntoSignInForm } from "../utilities/formValidators/signInValidators";
 
 export default function SignInScreen() {
   const [email, setEmail] = useState("");
@@ -24,6 +23,10 @@ export default function SignInScreen() {
     password,
   };
 
+  const setEmailCustomFunction = (inputedEmail: string) => {
+    setEmail(inputedEmail.toLowerCase());
+  };
+
   preventUserFromGoingBackOnPressingBackButton();
 
   const submitHandler = () => {
@@ -31,16 +34,12 @@ export default function SignInScreen() {
     if (validateForm === true) {
       setIsFormValid(true);
     }
-  };
-  // use Effect not needed
-  // remove payload from dependency array
-
-  useEffect(() => {
     if (isFormValid === true) {
       showMessage({ message: "Loading..." });
       signInUserWithBackendAuthApi(payload, navigation);
     }
-  }, [submitHandler]);
+    return;
+  };
 
   return (
     <View style={signInStyles.container}>
@@ -50,7 +49,7 @@ export default function SignInScreen() {
       <Text>Email</Text>
       <TextInput
         style={signInStyles.inputStyle}
-        onChangeText={setEmail}
+        onChangeText={setEmailCustomFunction}
         textContentType="emailAddress"
       />
 

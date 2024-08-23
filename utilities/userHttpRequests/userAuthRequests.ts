@@ -14,7 +14,8 @@ export const signInUserWithBackendAuthApi = (
           navigateToWelcome(navigation);
       })
       .catch((error) => {
-        showMessage({ message: "error" + error.message });
+        return
+       
       });
   };
 
@@ -30,6 +31,6 @@ export const signUpUserWithBackendAuthApi = (
       
       })
       .catch((error) => {
-        showMessage({ message: "error " + error });
+        showMessage({ message: "error shshsh " + error });
       });
   };

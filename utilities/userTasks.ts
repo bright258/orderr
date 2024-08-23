@@ -26,6 +26,8 @@ export const navigateToSignUp = (navigation: any) => {
 
 
 
+
+
 // export const deleteUserState = (data: string) => {
 //   saveToSecureStorage("userToken", data);
 //   saveToSecureStorage("signedInStatus", "true");

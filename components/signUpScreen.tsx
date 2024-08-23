@@ -1,5 +1,5 @@
 import { Text, View, TextInput, Button } from "react-native";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import { signUpStyles } from "../styles/signUpStyle";
 import {
@@ -12,7 +12,7 @@ import {
   UserSignUpPayload,
 } from "../utilities/userConstants";
 import { signUpUserWithBackendAuthApi } from "../utilities/userHttpRequests/userAuthRequests";
-import {validateUserEntryIntoSignUpForm} from "../utilities/formValidators/signUpValidators"
+import { validateUserEntryIntoSignUpForm } from "../utilities/formValidators/signUpValidators";
 
 export default function SignUpScreen() {
   const [email, setEmail] = useState("");
@@ -39,9 +39,6 @@ export default function SignUpScreen() {
     if (validateForm === true) {
       setIsFormValid(true);
     }
-  };
-
-  useEffect(() => {
     if (isFormValid === true) {
       showMessage({ message: "Loading..." });
       signUpUserWithBackendAuthApi(payload, navigation);
@@ -49,7 +46,7 @@ export default function SignUpScreen() {
     } else {
       return;
     }
-  }, [isFormValid, submitHandler]);
+  };
 
   return (
     <View style={signUpStyles.container}>

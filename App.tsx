@@ -8,47 +8,51 @@ import FlashMessage from "react-native-flash-message";
 import WelcomeScreen from "./components/welcomeScreen";
 import { Provider } from "react-redux";
 import { store } from "./utilities/reduxStore";
-
+import ItemShowSlide from "./components/itemShowSlide";
 
 const Stack = createNativeStackNavigator();
 
 export default function Index() {
   return (
     <Provider store={store}>
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Splash"
-          component={SplashScreen}
-          options={{ headerBackTitleVisible: false, headerShown: false }}
-          
-        />
-        <Stack.Screen
-          name="SignUp"
-          component={SignUpScreen}
-          options={{ headerBackTitleVisible: false, headerShown: false }}
-        />
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Splash"
+            component={SplashScreen}
+            options={{ headerBackTitleVisible: false, headerShown: false }}
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUpScreen}
+            options={{ headerBackTitleVisible: false, headerShown: false }}
+          />
 
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ headerBackTitleVisible: false, headerShown: false }}
-        />
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{ headerBackTitleVisible: false, headerShown: false }}
+          />
 
-        <Stack.Screen
-          name="Login"
-          component={SignInScreen}
-          options={{ headerBackTitleVisible: false, headerShown: false }}
-        />
+          <Stack.Screen
+            name="Login"
+            component={SignInScreen}
+            options={{ headerBackTitleVisible: false, headerShown: false }}
+          />
 
-        <Stack.Screen
-          name="Welcome"
-          component={WelcomeScreen}
-          options={{ headerBackTitleVisible: false, headerShown: false }}
-        />
-      </Stack.Navigator>
-      <FlashMessage position="top" />
-    </NavigationContainer>
+          <Stack.Screen
+            name="Welcome"
+            component={WelcomeScreen}
+            options={{ headerBackTitleVisible: false, headerShown: false }}
+          />
+          <Stack.Screen
+            name="RandomScreen"
+            component={ItemShowSlide}
+            options={{ headerBackTitleVisible: false, headerShown: false }}
+          />
+        </Stack.Navigator>
+        <FlashMessage position="top" />
+      </NavigationContainer>
     </Provider>
   );
 }
