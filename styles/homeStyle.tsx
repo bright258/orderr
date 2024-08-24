@@ -7,6 +7,7 @@ export const homeStyle = StyleSheet.create({
     marginTop: 50,
     marginLeft: 7,
     marginRight: 7,
+    // backgroundColor: "#F9F9F9"
   },
 
   boldText: {
@@ -80,17 +81,35 @@ export const homeStyle = StyleSheet.create({
     flexWrap: "wrap",
   },
   showRoom: {
-    height: 181.98,
-    marginTop: -70,
+    height: 200.98,
+    marginTop: -40,
     marginRight: 10,
+    // backgroundColor: "black",
+    width: 306,
+    borderRadius: 12,
+    marginBottom: 15
   },
   eachShowRoom: {
     width: 101.91,
-    textAlign: "center",
-    justifyContent: "center",
     alignItems: "center",
-    flexGrow: 1,
-    height: 181.98,
+    height: 150.98,
+    backgroundColor: "#F9F9F9",
+    marginTop: 20,
+    borderRadius: 70,
+    marginLeft: 10,
+    elevation: 10,
+    shadowColor: 'black',
+    shadowOffset: { width: 100, height: 10 },
+    shadowOpacity: 0.8,
+    shadowRadius: 60, 
+    borderBottomRightRadius: 0,
+    borderBottomLeftRadius: 0
+
+
+
+
+    
+    
   },
 
   showRoomImage: {
@@ -106,6 +125,7 @@ export const homeStyle = StyleSheet.create({
     padding: 5,
   },
   navBar: { padding: 5, color: "#565656" },
+
   itemShowSlideStyle: {
     marginTop: 40,
 }

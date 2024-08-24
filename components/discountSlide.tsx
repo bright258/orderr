@@ -1,7 +1,7 @@
-import { View, Text, ScrollView, Image, Pressable } from "react-native";
+import { Pressable, ScrollView, View, Image, Text } from "react-native";
 import { homeStyle } from "../styles/homeStyle";
 
-export default function ItemShowSlide() {
+export default function ItemDiscountSlide() {
   const itemName = "Hamburgerrrrr";
   const price = "$50";
   return (

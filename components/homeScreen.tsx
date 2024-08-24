@@ -11,6 +11,8 @@ import ItemShowSlide from "./itemShowSlide";
 import NavBarForSearch from "./navBarForSearch";
 import SearchBox from "./searchBox";
 import HeroSectionOnHomeScreen from "./heroOnHomeScreen";
+import ItemDiscountSlide from "./discountSlide";
+import { ScrollView } from "react-native";
 
 const rootReducer = combineReducers({});
 export type IRootState = ReturnType<typeof rootReducer>;
@@ -27,13 +29,17 @@ export default function HomeScreen() {
 
   return (
     <View style={homeStyle.container}>
-      <Text style={homeStyle.boldText}>{` Delicious\n Food For you`}</Text>
-      <View  >
-        <HeroSectionOnHomeScreen />
-        <SearchBox />
-        <NavBarForSearch />
-        <ItemShowSlide />
-      </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Text style={homeStyle.boldText}>{` Delicious\n Food For you`}</Text>
+        <View>
+          <HeroSectionOnHomeScreen />
+          <SearchBox />
+          <NavBarForSearch />
+          <ItemShowSlide />
+          <Text style={{color: "#362B19", marginLeft: 5}}>Hottest Discounts</Text>
+          <ItemDiscountSlide />
+        </View>
+      </ScrollView>
     </View>
   );
 }
