@@ -30,44 +30,6 @@ export default function ItemDiscountSlide() {
             </View>
           </View>
         </Pressable>
-        <Pressable style={homeStyle.eachShowRoom}>
-          <Image
-            source={require("../assets/first.png")}
-            style={{ height: 75.96, width: 70.96 }}
-          />
-          <View style={{ marginTop: 15 }}>
-            <Text style={{}}>
-              {itemName.length > 8
-                ? `${itemName.substring(0, 9)}...`
-                : itemName}
-            </Text>
-            <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-              <Text>{price}</Text>
-              <Text style={{ color: "#FF9F0D", fontSize: 14 }}>
-                {"     "} order
-              </Text>
-            </View>
-          </View>
-        </Pressable>
-        <Pressable style={homeStyle.eachShowRoom}>
-          <Image
-            source={require("../assets/first.png")}
-            style={{ height: 75.96, width: 70.96 }}
-          />
-          <View style={{ marginTop: 15 }}>
-            <Text style={{}}>
-              {itemName.length > 8
-                ? `${itemName.substring(0, 9)}...`
-                : itemName}
-            </Text>
-            <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-              <Text>{price}</Text>
-              <Text style={{ color: "#FF9F0D", fontSize: 14 }}>
-                {"     "} order
-              </Text>
-            </View>
-          </View>
-        </Pressable>
       </ScrollView>
     </View>
   );

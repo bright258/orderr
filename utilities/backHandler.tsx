@@ -1,7 +1,7 @@
 import {Alert, BackHandler} from 'react-native';
 
 export const backAction = () => {
-    Alert.alert('Hold on!', 'Are you sure you want to go back?', [
+    Alert.alert('Hold on!', 'Are you sure you want to exit?', [
       {
         text: 'Cancel',
         onPress: () => null,

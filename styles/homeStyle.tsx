@@ -102,8 +102,8 @@ export const homeStyle = StyleSheet.create({
     shadowOffset: { width: 100, height: 10 },
     shadowOpacity: 0.8,
     shadowRadius: 60, 
-    borderBottomRightRadius: 0,
-    borderBottomLeftRadius: 0
+    borderBottomRightRadius: 12,
+    borderBottomLeftRadius: 12
 
 
 

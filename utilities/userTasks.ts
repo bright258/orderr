@@ -20,6 +20,10 @@ export const navigateToSignUp = (navigation: any) => {
 };
 
 
+export const navigateToPreviousScreenOnPressingBackButton = () => {
+  BackHandler.addEventListener("hardwareBackPress", backAction
+);
+};
 
 
 

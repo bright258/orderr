@@ -9,6 +9,7 @@ import WelcomeScreen from "./components/welcomeScreen";
 import { Provider } from "react-redux";
 import { store } from "./utilities/reduxStore";
 import ItemShowSlide from "./components/itemShowSlide";
+import ItemDescriptionScreen from "./components/itemDescriptionScreen"
 
 const Stack = createNativeStackNavigator();
 
@@ -46,9 +47,14 @@ export default function Index() {
             options={{ headerBackTitleVisible: false, headerShown: false }}
           />
           <Stack.Screen
-            name="RandomScreen"
+            name="ItemShowSlide"
             component={ItemShowSlide}
             options={{ headerBackTitleVisible: false, headerShown: false }}
+          />
+          <Stack.Screen
+            name="ItemDescriptionScreen"
+            component={ItemDescriptionScreen}
+            options={{ headerBackTitleVisible: false, headerShown: true, headerTitle: '', headerTransparent: true }}
           />
         </Stack.Navigator>
         <FlashMessage position="top" />
